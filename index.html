@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <title>P1P3 — Dive into the Sound</title>
+  <meta name="description" content="P1P3 — DJ & Producer. Dark Techno, Melodic & Industrial. Booking, EPK, Technical Rider." />
+  <meta property="og:title" content="P1P3 — Dive into the Sound" />
+  <meta property="og:description" content="DJ & Producer. Dark Techno, Melodic & Industrial." />
+  <meta property="og:image" content="assets/opengraph.jpg" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/jpeg" href="assets/favicon.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css?v=20260608w" />
+</head>
+<body>
+
+  <!-- Fixed background layers -->
+  <canvas id="bg-canvas" class="bg-canvas" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="scanline" aria-hidden="true"></div>
+  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+  <!-- Nav -->
+  <header class="nav" id="nav">
+    <a href="#" class="nav-brand" aria-label="P1P3 — home">
+      <div class="logo-mark is-glow" style="width:36px;height:36px;">
+        <img src="assets/p1p3-logo-clean.png" alt="P1P3" class="logo-img logo-cyan" />
+        <img src="assets/p1p3-logo-clean.png" alt="" aria-hidden="true" class="logo-img logo-magenta" />
+        <img src="assets/p1p3-logo-clean.png" alt="" aria-hidden="true" class="logo-img logo-white" />
+      </div>
+    </a>
+
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#music"   class="nav-link" data-key="music">MUSIC</a>
+      <a href="#about"   class="nav-link" data-key="about">ABOUT</a>
+      <a href="#dossier" class="nav-link" data-key="dossier">EPK</a>
+      <a href="#rider"   class="nav-link" data-key="rider">RIDER</a>
+      <a href="#booking" class="nav-link" data-key="booking">BOOKING</a>
+    </nav>
+
+    <div class="nav-right">
+      <div class="lang-toggle" aria-label="Language">
+        <button class="lang-btn is-active" data-lang="en" aria-label="English">EN</button>
+        <span class="lang-sep">/</span>
+        <button class="lang-btn" data-lang="es" aria-label="Español">ES</button>
+      </div>
+      <button class="nav-menu-btn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile overlay -->
+  <div class="mobile-overlay" id="mobile-overlay" role="dialog" aria-modal="true" aria-label="Navigation menu">
+    <nav aria-label="Mobile navigation">
+      <a href="#music"   class="mobile-nav-link" data-key="music">MUSIC</a>
+      <a href="#about"   class="mobile-nav-link" data-key="about">ABOUT</a>
+      <a href="#dossier" class="mobile-nav-link" data-key="dossier">EPK</a>
+      <a href="#rider"   class="mobile-nav-link" data-key="rider">RIDER</a>
+      <a href="#booking" class="mobile-nav-link" data-key="booking">BOOKING</a>
+    </nav>
+    <div class="mobile-nav-lang">
+      <button class="mobile-lang-btn is-active" data-lang="en">EN</button>
+      <span class="lang-sep">/</span>
+      <button class="mobile-lang-btn" data-lang="es">ES</button>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ── HERO ─────────────────────────────────────────────────── -->
+    <section id="hero" class="section hero">
+
+      <!-- Corner metadata (absolute positioned) -->
+      <div class="hero-meta hero-tl" aria-hidden="true">N 4.711 / W 74.072 — BOGOTÁ</div>
+      <div class="hero-meta hero-tr" aria-hidden="true">
+        <span id="hero-clock">00:00:00 CET</span>
+      </div>
+
+      <!-- Mouse-follow glow -->
+      <div id="hero-glow" aria-hidden="true" style="
+        position:absolute;pointer-events:none;z-index:3;
+        width:600px;height:600px;
+        border-radius:50%;
+        background:radial-gradient(circle, rgba(42,243,255,0.07) 0%, transparent 65%);
+        transform:translate(-50%,-50%);
+        left:50%;top:50%;
+        filter:blur(30px);
+        transition:none;
+      "></div>
+
+      <div class="hero-inner">
+        <!-- Eyebrow -->
+        <div class="hero-eyebrow">
+          <span class="mono dim">DJ · PRODUCER</span>
+          <span class="hero-status">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="mono" id="hero-status">ONLINE</span>
+          </span>
+        </div>
+
+        <!-- Name / Logo -->
+        <div class="hero-logo-glitch" aria-label="P1P3">
+          <img src="assets/p1p3-logo-clean.png" alt="P1P3" class="hero-logo-img" />
+        </div>
+
+        <!-- Tagline -->
+        <div class="hero-tagline" id="hero-tagline">DIVE INTO THE SOUND</div>
+        <div class="hero-caption mono" id="hero-caption">DJ / PRODUCER — PEAK TIME / MELODIC UNDERGROUND</div>
+
+        <!-- CTAs -->
+        <div class="hero-actions">
+          <a href="#music" class="btn btn-primary" id="hero-cta">
+            <span>ENTER THE CLUB</span>
+            <span aria-hidden="true">↓</span>
+          </a>
+          <a href="#about" class="btn btn-ghost" id="hero-presskit">
+            PRESS KIT
+          </a>
+        </div>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="hero-scroll" aria-hidden="true">
+        <span class="mono dim" id="hero-scroll-lbl">SCROLL</span>
+        <span class="scroll-line"></span>
+      </div>
+
+      <div class="hero-meta hero-bl" aria-hidden="true" id="hero-caption-bl">DJ / PRODUCER — PEAK TIME / MELODIC UNDERGROUND</div>
+      <div class="hero-meta hero-br" aria-hidden="true">[P1P3 // 26]</div>
+    </section>
+
+    <!-- ── MUSIC ─────────────────────────────────────────────────── -->
+    <section id="music" class="section music">
+      <div class="section-header reveal">
+        <div class="section-label mono" id="music-label">// LATEST</div>
+        <h2 class="section-title" id="music-title">MUSIC</h2>
+        <p class="section-sub" id="music-sub">Recent releases, mixes and selections.</p>
+      </div>
+
+      <div class="music-grid">
+        <div class="player reveal">
+          <div class="player-head">
+            <span class="mono dim" id="player-label">FEATURED MIX</span>
+            <span class="mono dim" id="player-status">○ PAUSED</span>
+          </div>
+          <iframe
+            id="sc-iframe"
+            class="player-iframe"
+            title="P1P3 — Pharallellines"
+            width="100%" height="360"
+            scrolling="no" frameborder="no" allow="autoplay"
+            src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fpipe-778963801%2Fpharallellines&color=%232AF3FF&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true"
+          ></iframe>
+          <div class="player-foot">
+            <div class="waveform" id="waveform" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <div class="releases reveal">
+          <div class="releases-head">
+            <span class="mono dim" id="releases-label">RELEASES</span>
+          </div>
+          <ul class="release-list" id="release-list">
+            <!-- rendered by JS -->
+          </ul>
+
+          <!-- SESSIONS -->
+          <div class="releases-head releases-head--sessions">
+            <span class="mono dim" id="sessions-label">SESSIONS</span>
+          </div>
+          <ul class="release-list" id="session-list">
+            <!-- rendered by JS -->
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ABOUT ─────────────────────────────────────────────────── -->
+    <section id="about" class="section about">
+      <div class="about-two-col">
+
+        <!-- Columna izquierda: foto artista -->
+        <div class="about-portrait reveal-left">
+          <img src="assets/photo-artist.jpg" alt="P1P3" class="about-portrait-img" />
+          <div class="about-portrait-overlay"></div>
+          <span class="about-portrait-tag mono">P1P3 — 2025</span>
+        </div>
+
+        <!-- Columna derecha: texto -->
+        <div class="about-text-col">
+          <div class="section-header reveal">
+            <div class="section-label mono" id="about-label">// PROFILE</div>
+            <h2 class="section-title" id="about-title">ABOUT</h2>
+          </div>
+
+          <div class="about-tags reveal">
+            <span class="about-tag mono">PEAK TIME <em>137–140 BPM</em></span>
+            <span class="about-tag mono">MELODIC PROGRESSIVE <em>130–132 BPM</em></span>
+            <span class="about-tag mono">HARD DRIVE / HARDGROOVE <em>140–142 BPM</em></span>
+          </div>
+
+          <div class="about-body">
+            <p class="about-bio reveal" id="about-bio1">P1P3 is a DJ specialised in high-energy experiences within underground electronic music. His sound moves between Peak Time Techno (137–140 BPM), powerful Melodic Progressive (130–132 BPM) and Hard Drive / Hardgroove inspired by the energy of the contemporary European scene (140–142 BPM).</p>
+            <p class="about-bio reveal" id="about-bio2">His sets are defined by dynamic mixing, precise transitions and a progressive tension build that keeps the dancefloor in constant motion. Influenced by both modern techno and the rhythmic force of 2000s sounds, he develops sessions where energy and groove are the protagonists.</p>
+            <p class="about-bio reveal" id="about-bio3">P1P3 has featured on the international platform HÖR Berlin — one of the most recognised showcases for emerging and established artists in the global electronic scene. Through this exposure, a significant part of his digital audience comes from Germany, which concentrates a major share of his SoundCloud plays.</p>
+
+            <div class="about-actions reveal">
+              <a href="#dossier" class="btn btn-ghost" id="about-epk-btn">READ THE DOSSIER</a>
+            </div>
+          </div>
+        </div><!-- /about-text-col -->
+
+      </div><!-- /about-two-col -->
+
+      <!-- Logo marca de agua: absoluto, alineado con la foto a la derecha -->
+      <img src="assets/p1p3-logo-clean.png" alt="" class="about-bg-logo" aria-hidden="true" />
+    </section>
+
+    <!-- ── PHOTO GALLERY ──────────────────────────────────────────── -->
+    <section class="photo-strip" aria-label="P1P3 live photos">
+
+      <!-- Fila 1: imagen izquierda (65%) · texto derecha (35%) -->
+      <div class="ps-row ps-row--left">
+        <div class="ps-img-wrap">
+          <img src="assets/photo-dj-bw.jpg" alt="P1P3 live set" class="ps-img" />
+        </div>
+        <div class="ps-text">
+          <span class="ps-num mono">01</span>
+          <h3 class="ps-title">IN THE<br>MIX</h3>
+        </div>
+      </div>
+
+      <!-- Fila 2: texto izquierda (35%) · imagen derecha (65%) -->
+      <div class="ps-row ps-row--right">
+        <div class="ps-text">
+          <span class="ps-num mono">02</span>
+          <h3 class="ps-title">LIVE<br>SET</h3>
+        </div>
+        <div class="ps-img-wrap">
+          <img src="assets/photo-dj-live.jpg" alt="P1P3 live" class="ps-img" />
+        </div>
+      </div>
+
+      <!-- Fila 3: imagen izquierda (65%) · texto derecha (35%) -->
+      <div class="ps-row ps-row--left">
+        <div class="ps-img-wrap">
+          <img src="assets/photo-studio.jpg" alt="P1P3 studio session" class="ps-img ps-img--portrait" />
+        </div>
+        <div class="ps-text">
+          <span class="ps-num mono">03</span>
+          <h3 class="ps-title">STUDIO<br>SESSIONS</h3>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ── HÖR BERLIN FEATURE ───────────────────────────────────────── -->
+    <section class="hor-feature">
+      <div class="hor-inner">
+        <div class="hor-header reveal">
+          <span class="mono hor-badge">// CONTEST ENTRY</span>
+          <h2 class="hor-title">HÖR<br>BERLIN</h2>
+          <p class="hor-sub mono">DIVE IN 2 THE SOUND — CONTEST SUBMISSION</p>
+        </div>
+        <div class="hor-player reveal">
+          <div class="player-head">
+            <span class="mono dim">HÖR BERLIN · P1P3</span>
+            <span class="mono dim">○ PAUSED</span>
+          </div>
+          <iframe
+            class="player-iframe"
+            title="P1P3 — Dive In 2 The Sound @ HÖR Berlin"
+            width="100%" height="360"
+            scrolling="no" frameborder="no" allow="autoplay"
+            src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fpipe-778963801%2Fdivein2thesound3&color=%232AF3FF&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ARTIST STATEMENT ─────────────────────────────────────────── -->
+    <section class="artist-statement">
+      <div class="statement-inner">
+        <div class="influences-block reveal">
+          <h3 class="influences-title" id="influences-title"></h3>
+          <p class="influences-intro" id="influences-intro"></p>
+          <ul class="influences-list" id="influences-list"></ul>
+          <p class="influences-outro" id="influences-outro"></p>
+        </div>
+
+        <p class="statement-p" id="statement1"></p>
+        <p class="statement-p" id="statement2"></p>
+        <p class="statement-p" id="statement3"></p>
+      </div>
+    </section>
+
+    <!-- ── DOSSIER / EPK ──────────────────────────────────────────── -->
+    <section id="dossier" class="section dossier">
+      <div class="section-label mono reveal" id="dossier-label">// DOSSIER — 001 / FILE</div>
+
+      <div class="dossier-frame reveal">
+        <div class="dossier-topbar">
+          <span class="mono dim">CLASSIFIED · PUBLIC</span>
+          <span class="mono dim">REV 26 / 2026</span>
+        </div>
+
+        <h2 class="dossier-title glitch" data-text="DIVE IN 2 THE SOUND">DIVE IN 2 THE SOUND</h2>
+        <div class="dossier-rule"></div>
+
+        <p class="dossier-intro" id="dossier-intro">P1P3 is a DJ focused on building immersive sonic experiences within Melodic Techno and Peak Time Underground. His style is built on layering — sustaining a continuous flow with clean transitions and a narrative that keeps evolving across every set.</p>
+
+        <div class="dossier-blocks" id="dossier-blocks">
+          <div class="dossier-block">
+            <span class="dossier-block-tag mono">STYLE</span>
+            <span class="dossier-block-body">Melodic Techno · Progressive House · Peak Time / Atmospheric</span>
+          </div>
+          <div class="dossier-block">
+            <span class="dossier-block-tag mono">APPROACH</span>
+            <span class="dossier-block-body">Progressive energy build, layered depth, precise transitions and an atmosphere-first musical selection.</span>
+          </div>
+          <div class="dossier-block">
+            <span class="dossier-block-tag mono">CONCEPT</span>
+            <span class="dossier-block-body">"Dive into the sound" — an invitation into an immersive sonic experience.</span>
+          </div>
+        </div>
+
+        <div class="dossier-contact">
+          <div class="dossier-channels-head mono" id="dossier-channels-head">// DIRECT CHANNELS</div>
+          <div class="dossier-contact-list" id="dossier-contact-list">
+            <a class="dossier-contact-item" href="mailto:pulgawyf@gmail.com">
+              <span class="dossier-contact-k mono">EMAIL</span>
+              <span class="dossier-contact-v">pulgawyf@gmail.com</span>
+            </a>
+            <a class="dossier-contact-item" href="https://wa.me/573145617834" target="_blank" rel="noopener">
+              <span class="dossier-contact-k mono">WHATSAPP</span>
+              <span class="dossier-contact-v">+57 314 561 7834</span>
+            </a>
+            <a class="dossier-contact-item" href="https://www.p1pe3music.com" target="_blank" rel="noopener">
+              <span class="dossier-contact-k mono">WEB</span>
+              <span class="dossier-contact-v">www.p1pe3music.com</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── TECHNICAL RIDER ───────────────────────────────────────── -->
+    <section id="rider" class="section rider">
+      <div class="section-header reveal">
+        <div class="section-label mono" id="rider-label">// TECHNICAL</div>
+        <h2 class="section-title" id="rider-title">RIDER</h2>
+        <p class="section-sub" id="rider-sub">Technical requirements for all performances. Please confirm all items before booking is finalized.</p>
+      </div>
+
+      <div class="rider-grid">
+        <div class="rider-col" id="rider-col-1">
+          <!-- AUDIO -->
+          <div class="rider-block reveal">
+            <div class="rider-block-tag mono">AUDIO SETUP</div>
+            <ul class="rider-list">
+              <li>1× Allen &amp; Heath Xone:96 <span class="rider-note-inline mono">preferred mixer</span></li>
+              <li>1× Pioneer DJM-V10 <span class="rider-note-inline mono">acceptable alternative</span></li>
+              <li>DJM-900NXS2 <span class="rider-note-inline mono">acceptable alternative</span></li>
+              <li>4-channel minimum</li>
+              <li>Hybrid setup available <span class="rider-note-inline mono">CDJs + laptop — notify 48h in advance</span></li>
+            </ul>
+          </div>
+          <!-- MONITORING -->
+          <div class="rider-block reveal">
+            <div class="rider-block-tag mono">MONITORING</div>
+            <ul class="rider-list">
+              <li>2× Floor monitors at DJ booth <span class="rider-note-inline mono">minimum 12"</span></li>
+              <li>Separate monitor mix from FOH</li>
+              <li>Volume controllable from booth</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="rider-col" id="rider-col-2">
+          <!-- STAGE -->
+          <div class="rider-block reveal">
+            <div class="rider-block-tag mono">STAGE &amp; POWER</div>
+            <ul class="rider-list">
+              <li>Booth height minimum 60cm above dancefloor</li>
+              <li>DJ booth minimum depth 1.2m</li>
+              <li>2× power outlets at booth <span class="rider-note-inline mono">Schuko / standard</span></li>
+              <li>Dedicated lighting on DJ</li>
+            </ul>
+          </div>
+          <!-- SOUND SYSTEM -->
+          <div class="rider-block reveal">
+            <div class="rider-block-tag mono">SOUND SYSTEM</div>
+            <ul class="rider-list">
+              <li>Minimum 110dB SPL at dancefloor center</li>
+              <li>Quality subwoofer coverage required</li>
+              <li>d&amp;b · L-Acoustics · Funktion-One <span class="rider-note-inline mono">or professional equivalent</span></li>
+            </ul>
+          </div>
+          <!-- HOSPITALITY -->
+          <div class="rider-block reveal">
+            <div class="rider-block-tag mono">HOSPITALITY</div>
+            <ul class="rider-list">
+              <li>Still + sparkling water at booth throughout set</li>
+              <li>Access pass for +1 guest</li>
+              <li>Dinner for 2 before set <span class="rider-note-inline mono">minimum 3h prior</span></li>
+              <li>Hotel or transport arranged by promoter</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- NOTES — full width -->
+        <div class="rider-notes-row">
+          <div class="rider-block rider-block-wide reveal" id="rider-notes">
+            <div class="rider-block-tag mono">IMPORTANT NOTES</div>
+            <ul class="rider-list rider-list-notes">
+              <li>Headphone output MUST work on mixer</li>
+              <li>USB ports on both CDJs must be accessible</li>
+              <li>No open format — 100% own selection, no requests</li>
+              <li>Soundcheck minimum 30 minutes before set</li>
+              <li>No video streaming without prior written consent</li>
+            </ul>
+            <div class="rider-contact">
+              <span class="mono dim">RIDER QUERIES ·</span>
+              <a href="mailto:booking@p1p3.club" class="accent">booking@p1p3.club</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── BOOKING ───────────────────────────────────────────────── -->
+    <section id="booking" class="section booking">
+      <div class="section-header reveal">
+        <div class="section-label mono" id="booking-label">// CONTACT</div>
+        <h2 class="section-title" id="booking-title">BOOKING</h2>
+        <p class="section-sub" id="booking-sub">For shows, residencies and label requests.</p>
+      </div>
+
+      <div class="booking-grid">
+        <form class="booking-form reveal" id="booking-form" novalidate>
+          <div class="form-row">
+            <label class="form-field">
+              <span class="form-label mono" id="field-name-el">Name</span>
+              <input type="text" name="name" required autocomplete="name" />
+            </label>
+            <label class="form-field">
+              <span class="form-label mono" id="field-email-el">Email</span>
+              <input type="email" name="email" required autocomplete="email" />
+            </label>
+          </div>
+          <div class="form-row">
+            <label class="form-field">
+              <span class="form-label mono" id="field-date-el">Event date</span>
+              <input type="text" name="date" placeholder="2026 / MM / DD" />
+            </label>
+            <label class="form-field">
+              <span class="form-label mono" id="field-city-el">City</span>
+              <input type="text" name="city" autocomplete="off" />
+            </label>
+          </div>
+          <label class="form-field">
+            <span class="form-label mono" id="field-message-el">Tell me about the event</span>
+            <textarea name="message" rows="4"></textarea>
+          </label>
+          <button type="submit" class="form-send" id="form-send-btn">
+            <span id="form-send-txt">SEND REQUEST</span>
+            <span class="form-send-arrow" aria-hidden="true">→</span>
+          </button>
+        </form>
+
+        <aside class="booking-aside reveal">
+          <div class="mono dim aside-head" id="aside-head">Or write directly</div>
+          <a class="direct-link" href="mailto:pulgawyf@gmail.com">
+            <span class="mono dim">BOOKING</span>
+            <span class="direct-email" id="booking-email">pulgawyf@gmail.com</span>
+          </a>
+          <div class="aside-socials">
+            <a href="#" class="social-link">INSTAGRAM ↗</a>
+            <a href="https://soundcloud.com/pipe-778963801" target="_blank" rel="noopener" class="social-link">SOUNDCLOUD ↗</a>
+            <a href="#" class="social-link">RA ↗</a>
+            <a href="#" class="social-link">SPOTIFY ↗</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="logo-mark" style="width:28px;height:28px;">
+        <img src="assets/p1p3-logo-clean.png" alt="P1P3" class="logo-img logo-white" style="width:100%;height:100%;" />
+      </div>
+      <span class="mono dim footer-built" id="footer-built">Sound first. Everything else after.</span>
+      <span class="mono dim" id="footer-copy">© P1P3 — 2026 — ALL RIGHTS RESERVED</span>
+    </div>
+  </footer>
+
+  <!-- SoundCloud Widget API -->
+  <script src="https://w.soundcloud.com/player/api.js" defer></script>
+
+  <!-- GSAP -->
+  <script defer src="lib/gsap.min.js?v=20260607"></script>
+  <script defer src="lib/ScrollTrigger.min.js?v=20260607"></script>
+
+  <!-- Site -->
+  <script defer src="content.js?v=20260608r"></script>
+  <script defer src="main.js?v=20260608l"></script>
+
+</body>
+</html>
