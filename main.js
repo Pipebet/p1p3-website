@@ -645,16 +645,39 @@
     var txt = document.getElementById("form-send-txt");
     if (!form || !btn || !txt) return;
 
+    form.setAttribute("action", "https://formspree.io/f/xlgkbqbj");
+    form.setAttribute("method", "POST");
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      btn.classList.add("is-sent");
+      btn.disabled = true;
       var c = C();
-      if (txt && c.booking && c.booking.fields) txt.textContent = c.booking.fields.sent;
-      setTimeout(function () {
-        btn.classList.remove("is-sent");
-        if (txt && c.booking && c.booking.fields) txt.textContent = c.booking.fields.send;
-        form.reset();
-      }, 5000);
+      var data = new FormData(form);
+
+      fetch("https://formspree.io/f/xlgkbqbj", {
+        method: "POST",
+        body: data,
+        headers: { "Accept": "application/json" }
+      })
+      .then(function(res) {
+        if (res.ok) {
+          btn.classList.add("is-sent");
+          if (txt && c.booking && c.booking.fields) txt.textContent = c.booking.fields.sent;
+          form.reset();
+          setTimeout(function () {
+            btn.classList.remove("is-sent");
+            btn.disabled = false;
+            if (txt && c.booking && c.booking.fields) txt.textContent = c.booking.fields.send;
+          }, 5000);
+        } else {
+          btn.disabled = false;
+          alert("Something went wrong. Please try again or write directly to pulgawyf@gmail.com");
+        }
+      })
+      .catch(function() {
+        btn.disabled = false;
+        alert("Connection error. Please write directly to pulgawyf@gmail.com");
+      });
     });
   }
 
