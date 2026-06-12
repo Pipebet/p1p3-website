@@ -56,7 +56,7 @@
         statement3: "I believe that an artist's evolution is not only about perfecting technique, but about staying curious. Listening, experimenting, making mistakes and trying again are all part of the process that drives my growth. My goal is to keep developing my own musical identity while discovering new ways to transmit energy, emotion and movement through every performance.",
         influencesTitle: "Musical Influences",
         influencesIntro: "My sound draws inspiration from artists who have shaped different corners of contemporary electronic music, from melodic storytelling to peak-time energy and groove-driven techno.",
-        influences: ["Joris Voorn", "David Moleon", "Enrico Sangiuliano", "Adam Beyer", "Charlotte de Witte", "Kevin de Vries", "Konstantin Sibold"],
+        influences: ["Joris Voorn", "Enrico Sangiuliano", "Adam Beyer", "Kevin de Vries", "Konstantin Sibold"],
         influencesOutro: "While these artists have inspired my development, my goal is to continuously evolve and build a distinctive identity through techno, melodic progressive and hybrid performance concepts.",
         stats: [
           { v: "08", k: "Years touring" },
@@ -192,7 +192,7 @@
         statement3: "Creo que la evolución de un artista no consiste únicamente en perfeccionar la técnica, sino en mantener la curiosidad. Escuchar, experimentar, equivocarse y volver a intentarlo son parte del proceso que impulsa mi crecimiento. Mi objetivo es seguir explorando la musica tanto sonidos propios como de otros artistas dejandome sorprender por esos sonidos unicos y extraños que puedes descubrir y utilizar para transmitir energía, emoción y movimiento a través de cada session.",
         influencesTitle: "Influencias Musicales",
         influencesIntro: "Mi sonido se nutre de artistas que han dado forma a distintas áreas de la música electrónica contemporánea, desde narrativas melódicas hasta energía de peak time y techno impulsado por el groove.",
-        influences: ["Joris Voorn", "David Moleon", "Enrico Sangiuliano", "Adam Beyer", "Charlotte de Witte", "Kevin de Vries", "Konstantin Sibold"],
+        influences: ["Joris Voorn", "Enrico Sangiuliano", "Adam Beyer", "Kevin de Vries", "Konstantin Sibold"],
         influencesOutro: "Aunque estos artistas han inspirado mi desarrollo, mi objetivo es evolucionar continuamente y construir una identidad propia a través del techno, el melodic progressive y conceptos de performance híbrido.",
         stats: [
           { v: "08", k: "Años de gira" },
