@@ -40,7 +40,7 @@
           { n: "005", title: "Exodus", label: "Self-released", year: "2026", kind: "Single", url: "https://soundcloud.com/pipe-778963801/exodus" },
         ],
         sessionlist: [
-          { n: "001", title: "Beyond the Grid", label: "P1P3", year: "2026", kind: "Session", desc: "Melodic underground — no boundaries, pure flow", url: "https://soundcloud.com/pipe-778963801/beyondthegrid" },
+          { n: "001", title: "Gravity Shift", label: "P1P3", year: "2026", kind: "Session", desc: "Melodic underground — no boundaries, pure flow", url: "https://soundcloud.com/pipe-778963801/gravityshift" },
           { n: "002", title: "Pharallel Lines",   label: "P1P3", year: "2026", kind: "Session", desc: "Full-throttle techno — built for the peak hour", url: "https://soundcloud.com/pipe-778963801/pharallellines" },
           { n: "003", title: "Groove Frecuency", label: "P1P3", year: "2026", kind: "Session", desc: "Raw rhythm, hardened groove — dance floor pressure", url: "https://soundcloud.com/pipe-778963801/groovefrecuency" },
         ],
