@@ -43,6 +43,7 @@
           { n: "001", title: "Red Line", label: "P1P3", year: "2026", kind: "Session", desc: "Melodic underground — no boundaries, pure flow", url: "https://soundcloud.com/pipe-778963801/redline" },
           { n: "002", title: "Mind Collapse",   label: "P1P3", year: "2026", kind: "Session", desc: "Full-throttle techno — built for the peak hour", url: "https://soundcloud.com/pipe-778963801/mindcollapse" },
           { n: "003", title: "Groove Frecuency II", label: "P1P3", year: "2026", kind: "Session", desc: "Raw rhythm, hardened groove — dance floor pressure", url: "https://soundcloud.com/pipe-778963801/groovefrecuency2" },
+          { n: "004", title: "Critical Hit", label: "P1P3", year: "2026", kind: "Session", desc: "Sharp hits, relentless pressure — straight for the jugular", url: "https://soundcloud.com/pipe-778963801/critical-hit" },
         ],
       },
       about: {
@@ -179,6 +180,7 @@
           { n: "001", title: "Red Line", label: "P1P3", year: "2026", kind: "Sesión", desc: "Underground melódico — sin límites, flujo puro", url: "https://soundcloud.com/pipe-778963801/redline" },
           { n: "002", title: "Mind Collapse",   label: "P1P3", year: "2026", kind: "Sesión", desc: "Techno a fondo — construido para el momento cumbre", url: "https://soundcloud.com/pipe-778963801/mindcollapse" },
           { n: "003", title: "Groove Frecuency II", label: "P1P3", year: "2026", kind: "Sesión", desc: "Ritmo crudo, groove endurecido — presión en la pista", url: "https://soundcloud.com/pipe-778963801/groovefrecuency2" },
+          { n: "004", title: "Critical Hit", label: "P1P3", year: "2026", kind: "Sesión", desc: "Golpes certeros, presión constante — directo a la yugular", url: "https://soundcloud.com/pipe-778963801/critical-hit" },
         ],
       },
       about: {
