@@ -590,8 +590,12 @@
     }
   }
 
+  function getTrackUrls() {
+    return Array.from(document.querySelectorAll('[data-sc-url]')).map(function(b) { return b.getAttribute('data-sc-url'); });
+  }
+
   function playRandomTrack() {
-    var urls = Array.from(document.querySelectorAll('[data-sc-url]')).map(function(b) { return b.getAttribute('data-sc-url'); });
+    var urls = getTrackUrls();
     if (!urls.length) return;
     // pick a random track different from current
     var pool = urls.filter(function(u) { return u !== _currentScUrl; });
@@ -600,12 +604,57 @@
     playScTrack(next);
   }
 
+  function playOffset(offset) {
+    var urls = getTrackUrls();
+    if (!urls.length) return;
+    var idx = urls.indexOf(_currentScUrl);
+    if (idx === -1) idx = 0;
+    var next = urls[(idx + offset + urls.length) % urls.length];
+    playScTrack(next);
+  }
+
+  function togglePlayPause() {
+    if (!window._scWidget) return;
+    window._scWidget.isPaused(function (paused) {
+      if (paused) window._scWidget.play();
+      else window._scWidget.pause();
+    });
+  }
+
+  function getUrlFromIframeSrc(src) {
+    var m = src && src.match(/url=([^&]+)/);
+    return m ? decodeURIComponent(m[1]) : null;
+  }
+
   window.playScTrack = playScTrack; // expose for release clicks
 
   function initSoundCloud() {
     var iframe = document.getElementById("sc-iframe");
     var statusEl = document.getElementById("player-status");
+    var ppBtn = document.getElementById("sc-playpause");
+    var prevBtn = document.getElementById("sc-prev");
+    var nextBtn = document.getElementById("sc-next");
     if (!iframe) return;
+
+    // Seed current-track state from whatever is embedded by default
+    if (!_currentScUrl) _currentScUrl = getUrlFromIframeSrc(iframe.src);
+
+    function setPlayingUI(playing) {
+      if (statusEl) {
+        statusEl.textContent = playing ? "● NOW PLAYING" : "○ PAUSED";
+        statusEl.style.color = playing ? "var(--accent)" : "";
+      }
+      var wf = document.getElementById("waveform");
+      if (wf) wf.classList.toggle("is-playing", playing);
+      if (ppBtn) {
+        ppBtn.classList.toggle("is-playing", playing);
+        ppBtn.setAttribute("aria-label", playing ? "Pause" : "Play");
+      }
+    }
+
+    if (prevBtn) prevBtn.addEventListener("click", function () { playOffset(-1); });
+    if (nextBtn) nextBtn.addEventListener("click", function () { playOffset(1); });
+    if (ppBtn) ppBtn.addEventListener("click", togglePlayPause);
 
     function tryBind() {
       if (!window.SC || !window.SC.Widget) {
@@ -614,23 +663,24 @@
       }
       var w = window.SC.Widget(iframe);
       window._scWidget = w;
+
+      // Highlight whichever track is loaded by default
+      if (_currentScUrl) {
+        var activeBtn = document.querySelector('[data-sc-url="' + _currentScUrl + '"]');
+        if (activeBtn) activeBtn.closest(".release-item").classList.add("is-active");
+      }
+
       w.bind(window.SC.Widget.Events.PLAY, function () {
         isPlaying = true;
-        if (statusEl) statusEl.textContent = "● NOW PLAYING";
-        if (statusEl) statusEl.style.color = "var(--accent)";
-        document.getElementById("waveform") && document.getElementById("waveform").classList.add("is-playing");
+        setPlayingUI(true);
       });
       w.bind(window.SC.Widget.Events.PAUSE, function () {
         isPlaying = false;
-        if (statusEl) statusEl.textContent = "○ PAUSED";
-        if (statusEl) statusEl.style.color = "";
-        document.getElementById("waveform") && document.getElementById("waveform").classList.remove("is-playing");
+        setPlayingUI(false);
       });
       w.bind(window.SC.Widget.Events.FINISH, function () {
         isPlaying = false;
-        if (statusEl) statusEl.textContent = "○ PAUSED";
-        if (statusEl) statusEl.style.color = "";
-        document.getElementById("waveform") && document.getElementById("waveform").classList.remove("is-playing");
+        setPlayingUI(false);
         // Auto-play next random track
         setTimeout(playRandomTrack, 800);
       });
