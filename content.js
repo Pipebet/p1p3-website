@@ -45,6 +45,7 @@
           { n: "003", title: "Groove Frecuency II", label: "P1P3", year: "2026", kind: "Session", desc: "Raw rhythm, hardened groove — dance floor pressure", url: "https://soundcloud.com/pipe-778963801/groovefrecuency2" },
           { n: "004", title: "Critical Hit", label: "P1P3", year: "2026", kind: "Session", desc: "Sharp hits, relentless pressure — straight for the jugular", url: "https://soundcloud.com/pipe-778963801/critical-hit" },
           { n: "005", title: "1 Night in Ibiza", label: "P1P3", year: "2026", kind: "Session", desc: "Sun-drenched melodics into peak-time island energy", url: "https://soundcloud.com/pipe-778963801/1nightinibiza" },
+          { n: "006", title: "Overdrive", label: "P1P3", year: "2026", kind: "Session", desc: "Saturated drive, maximum gain — pushed past the limit", url: "https://soundcloud.com/pipe-778963801/overdrive" },
         ],
       },
       about: {
@@ -183,6 +184,7 @@
           { n: "003", title: "Groove Frecuency II", label: "P1P3", year: "2026", kind: "Sesión", desc: "Ritmo crudo, groove endurecido — presión en la pista", url: "https://soundcloud.com/pipe-778963801/groovefrecuency2" },
           { n: "004", title: "Critical Hit", label: "P1P3", year: "2026", kind: "Sesión", desc: "Golpes certeros, presión constante — directo a la yugular", url: "https://soundcloud.com/pipe-778963801/critical-hit" },
           { n: "005", title: "1 Night in Ibiza", label: "P1P3", year: "2026", kind: "Sesión", desc: "Melodía bañada de sol hacia energía isleña de peak time", url: "https://soundcloud.com/pipe-778963801/1nightinibiza" },
+          { n: "006", title: "Overdrive", label: "P1P3", year: "2026", kind: "Sesión", desc: "Drive saturado, ganancia al máximo — más allá del límite", url: "https://soundcloud.com/pipe-778963801/overdrive" },
         ],
       },
       about: {
